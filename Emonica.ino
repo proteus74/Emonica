@@ -93,8 +93,13 @@ void setup()
 	CurrentPreset = EEPROM.read(0);  // the first Byte in the eeprom contains the current selected preset
 	
 
+	//
+	// Comment this out for initial preset initialisation.
+	//
+
+
 	/*
-	Comment this out for initial preset initialisation.
+	
 	for (byte t = 0; t < 8;t++)
 	{
 		Presets[t].Breath_CC_Controller = 1;

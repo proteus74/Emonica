@@ -6,8 +6,8 @@ boolean NoteIsPlaying = false;
 int LastNote = 0;
 void CoreProcessing()
 {
-	//long lastMillsX = micros();
-	CurrentNote = GetNoteFromSlider();  // Gibt die Note ohne Tasten zurück
+
+	CurrentNote = GetNoteFromSlider(); // Returns the note from slider-position
 
 	if (JumpToSetup == false)
 	{
@@ -25,6 +25,7 @@ void CoreProcessing()
 			SetupCounter = 0;
 		}
 	}
+
 	if (OldNote != CurrentNote)
 	{
 	//	Serial.println(MidiToNote(CurrentNote));

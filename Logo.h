@@ -1,4 +1,4 @@
-
+// Logodata- for startpage
 
 
 static const uint8_t PROGMEM Logo[] = {

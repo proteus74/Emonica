@@ -19,15 +19,6 @@ int GetNoteFromSlider()
 	int Rest = StepValue % ScaleIntervals[Presets[CurrentPreset].Key_Scale].IntervalLength;
 	int Note = Presets[CurrentPreset].Key_LowNote + (Octave * 12) +  ScaleIntervals[Presets[CurrentPreset].Key_Scale].Interval[Rest];
 
-
-	/*Serial.print(StepValue);
-	Serial.print("\t");
-	Serial.print(Octave);
-	Serial.print("\t");
-	Serial.print(Rest);
-	Serial.print("\t");
-	Serial.print(Note);
-	Serial.print("\t");
-	Serial.println(MidiToNote(Note));*/
+ 
 	return Note;
 }

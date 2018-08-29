@@ -13,44 +13,7 @@ void MoveSliderToCalibrate()
 	boolean a;
 	boolean b;
 	int counter = 0;
-
-	while (1==2)
-	{
-
-		Serial.print(digitalRead(10));
-		Serial.print(digitalRead(11));
-		Serial.print(digitalRead(14));
-		Serial.println(digitalRead(15));
-		delay(20);
-	}
-	while (1==2)
-	{
-
-
-		//delay(10);
-		boolean x =! digitalRead(IR0);
-		boolean y =! digitalRead(IR1);
-		Serial.println(Slider.read());
-	//		Serial.print("  ");
-
-			if (y!=b)
-			{
-
-				counter++;
-			}
-
-			if (x != a || y != b)
-			{
-				a = x;
-				b = y;
-				Serial.print(Slider.read());
-					Serial.print("  ");
-					Serial.print(counter);
-					Serial.print("  ");
-				Serial.print(a);
-				Serial.println(b);
-			}
-	}
+ 
 
 	while (exit == false)
 	{
