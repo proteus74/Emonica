@@ -85,7 +85,7 @@ int CalculateScaleSteps()
 			octavecounter++;
 		}
 	}
-	Serial.println("Anzahl Schritte " + (String)(realSteps ));
+	Serial.println("Steps " + (String)(realSteps ));
 	return realSteps ;
 	
 

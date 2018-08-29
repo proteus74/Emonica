@@ -6,12 +6,14 @@
 #define IR0 22
 #define IR1 21
 #define PRESSURE A9
+
 #define R3 10
 #define R2 11
 #define R1 12
 #define L3 13
 #define L2 14
 #define L1 15
+
 #define CoreIntervall 5000   // Process Slider and pressure everey 5ms
 byte ButtonPinNumbers[6] = { 15,14,13,12,11,10 };
 int CurrentNote;
@@ -88,9 +90,11 @@ IntervalTimer CoreTimer;
 
 void setup()
 {
+	CurrentPreset = EEPROM.read(0);  // the first Byte in the eeprom contains the current selected preset
 	
-	CurrentPreset = EEPROM.read(0);
 
+	/*
+	Comment this out for initial preset initialisation.
 	for (byte t = 0; t < 8;t++)
 	{
 		Presets[t].Breath_CC_Controller = 1;
@@ -109,7 +113,11 @@ void setup()
 		Presets[t].Key_MidiChannel = 1;
 		Presets[t].Key_Scale = 0;
 	}
-	//EEPROM_writeAnything(1, Presets);
+	EEPROM_writeAnything(1, Presets);
+	*/
+	
+	
+	// Read presets
 	EEPROM_readAnything(1, Presets);
 
 	pinMode(Pin_ValueUp, INPUT_PULLUP);
@@ -125,10 +133,6 @@ void setup()
 	pinMode(L3, INPUT_PULLUP);
 
 
-	 
-	
-
-
 	display.begin(SSD1306_SWITCHCAPVCC, 0x3C);
 	display.clearDisplay();
 	display.display();
@@ -139,9 +143,9 @@ void setup()
 
  
 
-	Serial.println("Calc Steps:" + String(CalculateScaleSteps()));
-	Serial.println("Calc Note: " + String(GetNoteFromScale(48)));
-	//scanner();
+	//Serial.println("Calc Steps:" + String(CalculateScaleSteps()));
+	//Serial.println("Calc Note: " + String(GetNoteFromScale(48)));
+	
 	CalculatedScaleSteps = CalculateScaleSteps();
 	Calibrate();
 	CoreTimer.begin(CoreProcessing, CoreIntervall);
