@@ -1,0 +1,258 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{C5F80730-F44F-4478-BDAE-6634EFC2CA88}</ProjectGuid>
+    <RootNamespace>
+    </RootNamespace>
+    <ProjectName>Emonica</ProjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>
+    </PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>
+    </PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>
+    </PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>
+    </PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup />
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\Emonica;$(ProjectDir)..\..\..\..\..\Program Files (x86)\Arduino\hardware\teensy\avr\libraries\i2c_t3;$(ProjectDir)..\..\..\..\..\Program Files (x86)\Arduino\hardware\teensy\avr\libraries\Adafruit_GFX;$(ProjectDir)..\..\..\..\..\Program Files (x86)\Arduino\hardware\teensy\avr\libraries\SPI;$(ProjectDir)..\..\..\..\..\Program Files (x86)\Arduino\hardware\teensy\avr\libraries\EEPROM;$(ProjectDir)..\..\..\..\..\Program Files (x86)\Arduino\hardware\teensy\avr\libraries\Encoder;$(ProjectDir)..\..\..\..\..\Program Files (x86)\Arduino\hardware\teensy\avr\libraries\Encoder\utility;$(ProjectDir)..\..\..\..\..\Program Files (x86)\Arduino\libraries;$(ProjectDir)..\libraries;$(ProjectDir)..\..\..\..\..\Program Files (x86)\Arduino\hardware\teensy\avr\libraries;$(ProjectDir)..\..\..\..\..\Program Files (x86)\Arduino\hardware\teensy\avr\cores\teensy3;$(ProjectDir)..\..\..\..\..\Program Files (x86)\Arduino\hardware\teensy\avr\cores\teensy3\avr;$(ProjectDir)..\..\..\..\..\Program Files (x86)\Arduino\hardware\teensy\avr\cores\teensy3\util;$(ProjectDir)..\..\..\..\..\Program Files (x86)\Arduino\hardware\tools\arm\arm-none-eabi\include;$(ProjectDir)..\..\..\..\..\Program Files (x86)\Arduino\hardware\tools\arm\lib\gcc\arm-none-eabi\5.4.1\include;$(ProjectDir)..\..\..\..\..\Program Files (x86)\Arduino\hardware\teensy;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <ForcedIncludeFiles>$(ProjectDir)__vm\.Emonica.vsarduino.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
+      <WholeProgramOptimization>false</WholeProgramOptimization>
+      <PreprocessorDefinitions>__HARDWARE_MK20dx256__;__HARDWARE_MK20DX256__;__MK20DX256__;TEENSYDUINO=142;ARDUINO=10805;F_CPU=96000000;USB_MIDI;LAYOUT_US_ENGLISH;__cplusplus=201103L;_VMICRO_INTELLISENSE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <ForcedIncludeFiles>%(ForcedIncludeFiles)</ForcedIncludeFiles>
+      <IgnoreStandardIncludePath>true</IgnoreStandardIncludePath>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ProjectCapability Include="VisualMicro" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Emonica.ino">
+      <FileType>CppCode</FileType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Adafruit_SSD1306.h" />
+    <ClInclude Include="AdaptiveButton.h">
+      <FileType>CppCode</FileType>
+    </ClInclude>
+    <ClInclude Include="Bounce.h">
+      <FileType>CppCode</FileType>
+    </ClInclude>
+    <ClInclude Include="ButtonProcessing.h">
+      <FileType>CppCode</FileType>
+    </ClInclude>
+    <ClInclude Include="CalculateNote.h">
+      <FileType>CppCode</FileType>
+    </ClInclude>
+    <ClInclude Include="CoreProcessing.h">
+      <FileType>CppCode</FileType>
+    </ClInclude>
+    <ClInclude Include="Defines.h">
+      <FileType>CppCode</FileType>
+    </ClInclude>
+    <ClInclude Include="direct_pin_read.h">
+      <FileType>CppCode</FileType>
+    </ClInclude>
+    <ClInclude Include="Helpers.h">
+      <FileType>CppCode</FileType>
+    </ClInclude>
+    <ClInclude Include="interrupt_config.h">
+      <FileType>CppCode</FileType>
+    </ClInclude>
+    <ClInclude Include="interrupt_pins.h">
+      <FileType>CppCode</FileType>
+    </ClInclude>
+    <ClInclude Include="Logo.h">
+      <FileType>CppCode</FileType>
+    </ClInclude>
+    <ClInclude Include="Main.h">
+      <FileType>CppCode</FileType>
+    </ClInclude>
+    <ClInclude Include="MoveSliderToCalibrate.h">
+      <FileType>CppCode</FileType>
+    </ClInclude>
+    <ClInclude Include="Preset.h">
+      <FileType>CppCode</FileType>
+    </ClInclude>
+    <ClInclude Include="ScaleIntervals.h">
+      <FileType>CppCode</FileType>
+    </ClInclude>
+    <ClInclude Include="Set_Breath_CC_Controller.h">
+      <FileType>CppCode</FileType>
+    </ClInclude>
+    <ClInclude Include="Set_Breath_CC_MidiChannel.h">
+      <FileType>CppCode</FileType>
+    </ClInclude>
+    <ClInclude Include="Set_Breath_Max_Pressure.h">
+      <FileType>CppCode</FileType>
+    </ClInclude>
+    <ClInclude Include="Set_Breath_Max_Value.h">
+      <FileType>CppCode</FileType>
+    </ClInclude>
+    <ClInclude Include="Set_Breath_Min_Value.h">
+      <FileType>CppCode</FileType>
+    </ClInclude>
+    <ClInclude Include="Set_Breath_Pressure_Threshold.h">
+      <FileType>CppCode</FileType>
+    </ClInclude>
+    <ClInclude Include="Set_Buttons_Type.h">
+      <FileType>CppCode</FileType>
+    </ClInclude>
+    <ClInclude Include="Set_Button_CC_Controller.h">
+      <FileType>CppCode</FileType>
+    </ClInclude>
+    <ClInclude Include="Set_Button_CC_Max_Value.h">
+      <FileType>CppCode</FileType>
+    </ClInclude>
+    <ClInclude Include="Set_Button_CC_Midi_Channel.h">
+      <FileType>CppCode</FileType>
+    </ClInclude>
+    <ClInclude Include="Set_Button_CC_Min_Value.h">
+      <FileType>CppCode</FileType>
+    </ClInclude>
+    <ClInclude Include="Set_Button_Midi_Channel.h">
+      <FileType>CppCode</FileType>
+    </ClInclude>
+    <ClInclude Include="Set_Button_Midi_Note.h">
+      <FileType>CppCode</FileType>
+    </ClInclude>
+    <ClInclude Include="Set_Button_Slide_Speed.h">
+      <FileType>CppCode</FileType>
+    </ClInclude>
+    <ClInclude Include="Set_Button_Slide_To.h">
+      <FileType>CppCode</FileType>
+    </ClInclude>
+    <ClInclude Include="Set_Button_Transpose_To.h">
+      <FileType>CppCode</FileType>
+    </ClInclude>
+    <ClInclude Include="Set_Button_Type_Midi_Expression.h">
+      <FileType>CppCode</FileType>
+    </ClInclude>
+    <ClInclude Include="Set_Key_Adaptive_Expression.h">
+      <FileType>CppCode</FileType>
+    </ClInclude>
+    <ClInclude Include="Set_Key_Adaptive_Expression_Max_Value.h">
+      <FileType>CppCode</FileType>
+    </ClInclude>
+    <ClInclude Include="Set_Key_Adaptive_Expression_Min_Value.h">
+      <FileType>CppCode</FileType>
+    </ClInclude>
+    <ClInclude Include="Set_Key_High_Note.h">
+      <FileType>CppCode</FileType>
+    </ClInclude>
+    <ClInclude Include="Set_Key_Low_Note.h">
+      <FileType>CppCode</FileType>
+    </ClInclude>
+    <ClInclude Include="Set_Key_Midi_Channel.h">
+      <FileType>CppCode</FileType>
+    </ClInclude>
+    <ClInclude Include="Set_Key_Scale.h">
+      <FileType>CppCode</FileType>
+    </ClInclude>
+    <ClInclude Include="Set_Key_Static_Expression_Value.h">
+      <FileType>CppCode</FileType>
+    </ClInclude>
+    <ClInclude Include="Set_Select_Preset.h">
+      <FileType>CppCode</FileType>
+    </ClInclude>
+    <ClInclude Include="SimpleList.h">
+      <FileType>CppCode</FileType>
+    </ClInclude>
+    <ClInclude Include="Welcome.h">
+      <FileType>CppCode</FileType>
+    </ClInclude>
+    <ClInclude Include="__vm\.Emonica.vsarduino.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Adafruit_SSD1306.cpp" />
+    <ClCompile Include="Bounce.cpp" />
+    <ClCompile Include="SimpleList.cpp" />
+  </ItemGroup>
+  <PropertyGroup>
+    <DebuggerFlavor>VisualMicroDebugger</DebuggerFlavor>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+  <ProjectExtensions>
+    <VisualStudio>
+      <UserProperties custom_teensy31_usb="midi" />
+    </VisualStudio>
+  </ProjectExtensions>
+</Project>
