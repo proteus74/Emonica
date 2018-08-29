@@ -12,14 +12,16 @@
 #define L3 13
 #define L2 14
 #define L1 15
-#define CoreIntervall 5000
+#define CoreIntervall 5000   // Process Slider and pressure everey 5ms
 byte ButtonPinNumbers[6] = { 15,14,13,12,11,10 };
 int CurrentNote;
 int CurrentPressureRaw;
 int CurrentPressureMidiValue;
 int OldNote;
+
 boolean RefreshDisplay = false;
 boolean JumpToSetup = false;
+
 #include "i2c_t3.h"
 #include <Adafruit_GFX.h>
 #include "Adafruit_SSD1306.h"
@@ -135,17 +137,7 @@ void setup()
 	Serial.begin(115200);
 	FillScaleIntervals();
 
-
-	//while (1)
-	//{
-	//	Serial.print(digitalRead(L1));
-	//	Serial.print(digitalRead(L2));
-	//	Serial.print(digitalRead(L3));
-	//	Serial.print(digitalRead(R1));
-	//	Serial.print(digitalRead(R2));
-	//	Serial.println(digitalRead(R3));
-	//	delay(40);
-	//}
+ 
 
 	Serial.println("Calc Steps:" + String(CalculateScaleSteps()));
 	Serial.println("Calc Note: " + String(GetNoteFromScale(48)));
