@@ -14,7 +14,7 @@ void MoveSliderToCalibrate()
 	boolean b;
 	int counter = 0;
  
-
+	// Show the arrow animation
 	while (exit == false)
 	{
 		for (int t = 0; t < 102; t+=4)
@@ -22,6 +22,8 @@ void MoveSliderToCalibrate()
 			
 			
 			int SliderRaw = Slider.read();
+			
+			
 			if (SliderRaw <= minSlider) 	minSlider = SliderRaw;
 			if (SliderRaw >= maxSlider) 	maxSlider = SliderRaw;
 			if (maxSlider - minSlider > 55)

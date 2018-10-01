@@ -5,10 +5,10 @@
 #define Page_Select_Preset 1
 #define Page_Set_Pressure_Threshold 2
 #define Page_Set_Pressure_Max 3
-#define Page_Set_Breath_CC_Midi_Channel 4
-#define Page_Set_Breath_CC_Controller 5
-#define Page_Set_Breath_CC_Min_Value 6
-#define Page_Set_Breath_CC_Max_Value 7
+#define Page_Set_Blow_CC_Midi_Channel 4
+#define Page_Set_Blow_CC_Controller 5
+#define Page_Set_Blow_CC_Min_Value 6
+#define Page_Set_Blow_CC_Max_Value 7
 #define Page_Set_Key_Midi_Channel 8
 #define Page_Set_Key_Low_Note 9
 #define Page_Set_Key_High_Note 10
@@ -30,15 +30,10 @@
 #define Page_Set_Button_Type_Midi_Expression 26
 
 #define PAUSE_BETWEEN_SCREENS 150
-#define TIME_TO_MAIN_PAGE 4000
-String ScaleNames[3] = { "Chromatic","Maj. Pentatonic","Min. Pentatonic" };
+#define TIME_TO_RETURN_TO_MAIN_PAGE 6000
+
 String NoteNames[12] = { "C","C#","D","D#","E","F","F#","G","G#","A","A#","B" };
 int CalibationValue = 0;
-byte Scales[3][12] = 
-{ 
-	{1,2,3,4,5,6,7,8,9,10,11,12},
-	{1,2,3,4,5,6,7,8,9,10,11,12},
-};
 
 
 long LastTimer = 0;

@@ -3,7 +3,7 @@
 void Set_Button_CC_Max_Value()
 {
 	int seltemp = -1;
-	int temp = Presets[CurrentPreset].Buttons[ButtonToConfigure].CC_Max;
+	int temp = Presets[CurrentPreset].Buttons[ButtonToConfigure].CC_Value_Released;
 
 	const int MinVal = 0;
 	const int MaxVal = 127;
@@ -38,7 +38,7 @@ void Set_Button_CC_Max_Value()
 			LastTimer = millis();
 			display.fillRect(0, 20, 127, 38, 0);
 			display.setFont(&FreeSansBold18pt7b);
-			Presets[CurrentPreset].Buttons[ButtonToConfigure].CC_Max = temp;
+			Presets[CurrentPreset].Buttons[ButtonToConfigure].CC_Value_Released = temp;
 			printCentered(String(temp), 48);
 			DrawProgressbar(temp, MinVal, MaxVal);
 			display.display();
@@ -60,7 +60,7 @@ void Set_Button_CC_Max_Value()
 			}
 			
 		}
-		if (abs(millis() - LastTimer) > TIME_TO_MAIN_PAGE)
+		if (abs(millis() - LastTimer) > TIME_TO_RETURN_TO_MAIN_PAGE)
 		{
 			exit = true;
 			currentScreen = Page_Main;

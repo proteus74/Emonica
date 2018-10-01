@@ -13,7 +13,7 @@ void Set_Key_Scale()
 	printCentered("Scale", 5);
 
 
-	display.drawBitmap(0, 0, Mundharmonic_Icon, 26, 16, 1);
+	display.drawBitmap(0, 0, Harmonic_Icon, 26, 16, 1);
 	display.fillRect(0, 18, 127, 38, 0);
 	display.setFont(&FreeSans9pt7b);
 	if (ScaleIntervals[temp].Name2 == "")
@@ -70,7 +70,7 @@ void Set_Key_Scale()
 			exit = true;
 			currentScreen = Page_Set_Key_Adaptive_Expression;
 		}
-		if (abs(millis() - LastTimer) > TIME_TO_MAIN_PAGE)
+		if (abs(millis() - LastTimer) > TIME_TO_RETURN_TO_MAIN_PAGE)
 		{
 			exit = true;
 			currentScreen = Page_Main;

@@ -1,10 +1,11 @@
 #pragma once
-#pragma once
-
-void Set_Breath_Max_Value()
+/*
+	This is the Setuppage for the maximum MIDI value, when blowing
+*/
+void Set_Blow_Max_Value()
 {
 	int seltemp = -1;
-	int temp = Presets[CurrentPreset].Breath_CC_Max;
+	int temp = Presets[CurrentPreset].Blow_CC_Max;
 
 	const int MinVal = 0;
 	const int MaxVal = 127;
@@ -37,7 +38,7 @@ void Set_Breath_Max_Value()
 			LastTimer = millis();
 			display.fillRect(0, 20, 127, 38, 0);
 			display.setFont(&FreeSansBold18pt7b);
-			Presets[CurrentPreset].Breath_CC_Max = temp;
+			Presets[CurrentPreset].Blow_CC_Max = temp;
 			printCentered(String(temp), 48);
 			DrawProgressbar(temp, MinVal, MaxVal);
 			display.display();
@@ -46,14 +47,14 @@ void Set_Breath_Max_Value()
 		if (Prev.Update())
 		{
 			exit = true;
-			currentScreen = Page_Set_Breath_CC_Min_Value;
+			currentScreen = Page_Set_Blow_CC_Min_Value;
 		}
 		if (Next.Update())
 		{
 			exit = true;
 			currentScreen = Page_Set_Key_Midi_Channel;
 		}
-		if (abs(millis() - LastTimer) > TIME_TO_MAIN_PAGE)
+		if (abs(millis() - LastTimer) > TIME_TO_RETURN_TO_MAIN_PAGE)
 		{
 			exit = true;
 			currentScreen = Page_Main;

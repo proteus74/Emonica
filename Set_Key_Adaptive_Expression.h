@@ -10,7 +10,7 @@ void Set_Key_Adaptive_Expression()
 	display.setFont(NULL);
 	printCentered("Adaptive", 0);
 	printCentered("Expression", 8);
-	display.drawBitmap(0, 0, Mundharmonic_Icon, 26, 16, 1);
+	display.drawBitmap(0, 0, Harmonic_Icon, 26, 16, 1);
 	display.fillRect(0, 18, 127, 38, 0);
 	display.setFont(&FreeSansBold18pt7b);
 	printCentered((temp == 0 ? "off" : "on"), 48);
@@ -58,7 +58,7 @@ void Set_Key_Adaptive_Expression()
 				currentScreen = Page_Set_Key_Adaptive_Expression_Min;
 			}
 		}
-		if (abs(millis() - LastTimer) > TIME_TO_MAIN_PAGE)
+		if (abs(millis() - LastTimer) > TIME_TO_RETURN_TO_MAIN_PAGE)
 		{
 			exit = true;
 			currentScreen = Page_Main;

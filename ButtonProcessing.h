@@ -12,8 +12,11 @@ boolean DoButtonProcessing()
 
 	if (!digitalRead(L1) && !digitalRead(L2) && !digitalRead(L3) && !digitalRead(R1) && !digitalRead(R2) && !digitalRead(R3))
 	{
+		// All buttons are pressed 
 		return true;
 	}
+
+
 
 	for (byte t = 0; t < 6; t++)
 	{
@@ -47,7 +50,7 @@ boolean DoButtonProcessing()
 			}
 			
 		}
-		else if (Presets[CurrentPreset].Buttons[t].Type == 3)  // CC
+		else if (Presets[CurrentPreset].Buttons[t].Type == 3)  // Send CC Value
 		{
 			boolean ButtonState = !digitalRead(ButtonPinNumbers[t]);
 			if (LastButtonStats[t] != ButtonState)
@@ -57,21 +60,21 @@ boolean DoButtonProcessing()
 					// Sende CC Wert HIGH
 					Serial.print("CC CH:" + (String)Presets[CurrentPreset].Buttons[t].CC_MidiChannel + "  ");
 					Serial.print("CC Con:" + (String)Presets[CurrentPreset].Buttons[t].CC_Controller + "  ");
-					Serial.println("CC Val:" + (String)+Presets[CurrentPreset].Buttons[t].CC_Max);
-					usbMIDI.sendControlChange(Presets[CurrentPreset].Buttons[t].CC_Controller, Presets[CurrentPreset].Buttons[t].CC_Max, Presets[CurrentPreset].Buttons[t].CC_MidiChannel);
+					Serial.println("CC Val:" + (String)+Presets[CurrentPreset].Buttons[t].CC_Value_Pressed);
+					usbMIDI.sendControlChange(Presets[CurrentPreset].Buttons[t].CC_Controller, Presets[CurrentPreset].Buttons[t].CC_Value_Pressed, Presets[CurrentPreset].Buttons[t].CC_MidiChannel);
 				}
 				else
 				{
 					// Sende CC Wert Low
 					Serial.print("CC CH:" + (String)Presets[CurrentPreset].Buttons[t].CC_MidiChannel + "  ");
 					Serial.print("CC Con:" + (String)Presets[CurrentPreset].Buttons[t].CC_Controller + "  ");
-					Serial.println("CC Val:" + (String)+Presets[CurrentPreset].Buttons[t].CC_Min);
-					usbMIDI.sendControlChange(Presets[CurrentPreset].Buttons[t].CC_Controller, Presets[CurrentPreset].Buttons[t].CC_Min, Presets[CurrentPreset].Buttons[t].CC_MidiChannel);
+					Serial.println("CC Val:" + (String)+Presets[CurrentPreset].Buttons[t].CC_Value_Released);
+					usbMIDI.sendControlChange(Presets[CurrentPreset].Buttons[t].CC_Controller, Presets[CurrentPreset].Buttons[t].CC_Value_Released, Presets[CurrentPreset].Buttons[t].CC_MidiChannel);
 				}
 				LastButtonStats[t] = ButtonState;
 			}
 		}
-		else if (Presets[CurrentPreset].Buttons[t].Type == 4)  // Midi Note
+		else if (Presets[CurrentPreset].Buttons[t].Type == 4)  // Send Midi Note
 		{
 			boolean ButtonState = !digitalRead(ButtonPinNumbers[t]);
 			if (LastButtonStats[t] != ButtonState)

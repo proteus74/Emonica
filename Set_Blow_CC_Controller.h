@@ -1,20 +1,19 @@
 #pragma once
-
-void Set_Breath_Max_Pressure()
+/*
+	This is the Setuppage for the MIDI CC Controller, when blowing
+*/
+void Set_Blow_CC_Controller()
 {
 	int seltemp = -1;
-	int temp = Presets[CurrentPreset].Breath_Max_Pressure;
-
-
-	display.clearDisplay();
+	int temp = Presets[CurrentPreset].Blow_CC_Controller;
 	const int MinVal = 0;
-	const int MaxVal = 1024;
+	const int MaxVal = 127;
 	display.clearDisplay();
 	DisplayPresetNumber();
 	DrawProgressbar(temp, MinVal, MaxVal);
 	display.setFont(NULL);
-	printCentered("Maximal", 0);
-	printCentered("Pressure", 9);
+	printCentered("CC", 0);
+	printCentered("Channel", 9);
 	display.drawBitmap(0, 0, Mouth_Icon, 27, 16, 1);
 	display.fillRect(0, 18, 127, 38, 0);
 	display.setFont(&FreeSansBold18pt7b);
@@ -25,7 +24,7 @@ void Set_Breath_Max_Pressure()
 	AdaptiveButton Next = AdaptiveButton(Pin_NextScreen, &seltemp, 1, 0, 2);
 	AdaptiveButton Prev = AdaptiveButton(Pin_PrevScreen, &seltemp, -1, 0, 2);
 	AdaptiveButton	ValueUp = AdaptiveButton(Pin_ValueUp, &temp, 1, MinVal, MaxVal);
-	AdaptiveButton	ValueDown = AdaptiveButton(Pin_ValueDown, &temp, -1, MinVal, MaxVal);
+	AdaptiveButton	ValueDown = AdaptiveButton(Pin_ValueDown, &temp, -1, MinVal,MaxVal);
 
 
 	boolean exit = false;
@@ -34,31 +33,31 @@ void Set_Breath_Max_Pressure()
 	{
 		if (ValueUp.Update() || ValueDown.Update())
 		{
-			flagSaveConfig = true;
 			LastTimer = millis();
 			display.fillRect(0, 20, 127, 38, 0);
 			display.setFont(&FreeSansBold18pt7b);
-			Presets[CurrentPreset].Breath_Max_Pressure = temp;
+			Presets[CurrentPreset].Blow_CC_Controller = temp;
 			printCentered(String(temp), 48);
 			DrawProgressbar(temp, MinVal, MaxVal);
+			flagSaveConfig = true;
 			display.display();
 		}
 
 		if (Prev.Update())
 		{
 			exit = true;
-			currentScreen = Page_Set_Pressure_Threshold;
+			currentScreen = Page_Set_Blow_CC_Midi_Channel;
 		}
 		  if (Next.Update())
 		{
 			exit = true;
-			currentScreen = Page_Set_Breath_CC_Midi_Channel;
+			currentScreen = Page_Set_Blow_CC_Min_Value;
 		}
-		  if (abs(millis() - LastTimer) > TIME_TO_MAIN_PAGE)
+
+		  if (abs(millis() - LastTimer) > TIME_TO_RETURN_TO_MAIN_PAGE)
 		  {
 			  exit = true;
 			  currentScreen = Page_Main;
 		  }
 	}
 }
-

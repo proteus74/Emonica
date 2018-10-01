@@ -1,32 +1,63 @@
-#define Pin_ValueUp 12
-#define Pin_ValueDown 11
-#define Pin_PrevScreen 14
-#define Pin_NextScreen 15
-#define MaxPreset 8
-#define IR0 22
-#define IR1 21
-#define PRESSURE A9
+/*
+	------------------------------------------------------------------------------------------------------
+	Emonica - the MIDI Harmonica
+	Copyright (c) 2018 (john.lassen at gmx.de)
+	------------------------------------------------------------------------------------------------------
+	This software is free software; you can redistribute it and/or
+	modify it under the terms of the GNU Lesser General Public
+	License as published by the Free Software Foundation; either
+	version 2.1 of the License, or (at your option) any later version.
 
-#define R3 10
-#define R2 11
-#define R1 12
-#define L3 13
-#define L2 14
-#define L1 15
+	This software is distributed in the hope that it will be useful,
+	but WITHOUT ANY WARRANTY; without even the implied warranty of
+	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+	Lesser General Public License for more details.
+
+	------------------------------------------------------------------------------------------------------
+*/
+
+#define MaxPreset 8  // Maximum Presets
+#define IR0 22		 // Light breaker 1
+#define IR1 21		 // Light breaker 2
+#define PRESSURE A9	 // Analog Input for the pressure sensor
+
+
+
+#define L1 15   // Input pin for the left top button
+#define L2 14   // Input pin for the left middle button
+#define L3 13	// Input pin for the left bottom button
+
+
+#define R3 12	// Input pin for the right top button
+#define R2 11   // Input pin for the right middle button
+#define R1 10	// Input pin for the right bottom button 
+
+
+
+#define Pin_PrevScreen L2
+#define Pin_NextScreen L1
+#define Pin_ValueUp R1
+#define Pin_ValueDown R2
+
+#define SCALECOUNTS 10  // Number of Scale-Types (N+1)
+
 
 #define CoreIntervall 5000   // Process Slider and pressure everey 5ms
-byte ButtonPinNumbers[6] = { 15,14,13,12,11,10 };
+byte ButtonPinNumbers[6] = { L1,L2,L3,R1,R2,R3 };  
+
 int CurrentNote;
 int CurrentPressureRaw;
 int CurrentPressureMidiValue;
 int OldNote;
+byte CurrentPreset = 0;
+
 
 boolean RefreshDisplay = false;
 boolean JumpToSetup = false;
 
 #include "i2c_t3.h"
 #include <Adafruit_GFX.h>
-#include "Adafruit_SSD1306.h"
+#include "Adafruit_SSD1306.h"  // Don't forget to set the DEFINE to #define SSD1306_128_64 for the display
 Adafruit_SSD1306 display(4);
 #include "Bounce.h"
 #include "AdaptiveButton.h"
@@ -35,14 +66,10 @@ Adafruit_SSD1306 display(4);
 #include <Fonts/FreeSansBold18pt7b.h>
 #include <Fonts/FreeSansBold9pt7b.h>
 #include <EEPROM.h>
-
-byte CurrentPreset = 0;
-
 #include "Preset.h"
 Preset Presets[MaxPreset];
 #include "ScaleIntervals.h"
 #include "Defines.h"
-
 #include <Encoder.h>
 
 
@@ -50,19 +77,19 @@ boolean flagSaveConfig = false;
 int currentScreen = 0;
 Encoder Slider(IR1, IR0);
 
-#include "Helpers.h"
+#include "Helpers.h"   // Some helper function (e.g. EEPROM reading/writing)
 #include "Logo.h"
 #include "CalculateNote.h"
 #include "ButtonProcessing.h"
 #include "Main.h"
-#include "MoveSliderToCalibrate.h"
-#include "Set_Breath_CC_MidiChannel.h"
-#include "Set_Breath_CC_Controller.h"
-#include "Set_Breath_Pressure_Threshold.h"
-#include "Set_Breath_Max_Pressure.h"
 #include "Set_Select_Preset.h"
-#include "Set_Breath_Min_Value.h"
-#include "Set_Breath_Max_Value.h"
+#include "MoveSliderToCalibrate.h"
+#include "Set_Blow_CC_MidiChannel.h"
+#include "Set_Blow_CC_Controller.h"
+#include "Set_Blow_Pressure_Threshold.h"
+#include "Set_Blow_Max_Pressure.h"
+#include "Set_Blow_Min_Value.h"
+#include "Set_Blow_Max_Value.h"
 #include "Set_Key_Midi_Channel.h"
 #include "Set_Key_Static_Expression_Value.h"
 #include "Set_Key_Low_Note.h"
@@ -90,24 +117,20 @@ IntervalTimer CoreTimer;
 
 void setup()
 {
-	CurrentPreset = EEPROM.read(0);  // the first Byte in the eeprom contains the current selected preset
-	
 
-	//
-	// Comment this out for initial preset initialisation.
-	//
-
-
-	/*
-	
+	Serial.begin(115200);
+	delay(500);
+	Serial.print("Emonica starting...");
+	// Uncomment this part for the first time, to initialze the Presets in the EEPROM 
+	/* 
 	for (byte t = 0; t < 8;t++)
 	{
-		Presets[t].Breath_CC_Controller = 1;
-		Presets[t].Breath_CC_Max = 127;
-		Presets[t].Breath_CC_MidiChannel = 1;
-		Presets[t].Breath_CC_Min = 0;
-		Presets[t].Breath_Max_Pressure = 255;
-		Presets[t].Breath_Pressure_Threshold = 10;
+		Presets[t].Blow_CC_Controller = 1;
+		Presets[t].Blow_CC_Max = 127;
+		Presets[t].Blow_CC_MidiChannel = 1;
+		Presets[t].Blow_CC_Min = 0;
+		Presets[t].Blow_Max_Pressure = 255;
+		Presets[t].Blow_Pressure_Threshold = 10;
 		Presets[t].Buttons[0].Type = 0;
 		Presets[t].Key_AdaptiveExpression = false;
 		Presets[t].Key_AdaptiveExpressionMax = 127;
@@ -121,7 +144,8 @@ void setup()
 	EEPROM_writeAnything(1, Presets);
 	*/
 	
-	
+	CurrentPreset = EEPROM.read(0);  // the first Byte in the eeprom contains the current selected preset
+
 	// Read presets
 	EEPROM_readAnything(1, Presets);
 
@@ -137,19 +161,22 @@ void setup()
 	pinMode(L2, INPUT_PULLUP);
 	pinMode(L3, INPUT_PULLUP);
 
-
+	Serial.print("1");
 	display.begin(SSD1306_SWITCHCAPVCC, 0x3C);
+	Serial.print("...2");
 	display.clearDisplay();
 	display.display();
 	display.setTextColor(WHITE);
+	Serial.print("...3");
 	Wire.setClock(400000);
-	Serial.begin(115200);
-	FillScaleIntervals();
 
+
+	FillScaleIntervals();
+	Serial.print("...4");
  
 
-	//Serial.println("Calc Steps:" + String(CalculateScaleSteps()));
-	//Serial.println("Calc Note: " + String(GetNoteFromScale(48)));
+	Serial.println("Calc Steps:" + String(CalculateScaleSteps()));
+	Serial.println("Calc Note: " + String(GetNoteFromScale(48)));
 	
 	CalculatedScaleSteps = CalculateScaleSteps();
 	Calibrate();
@@ -163,8 +190,8 @@ void setup()
 void loop()
 {
 
-	WelcomeScreen();
-	MoveSliderToCalibrate();
+	WelcomeScreen();  // Show the Welcomescreen
+	MoveSliderToCalibrate();  // Calibrate the slider (move left/right)
 	
 	while(1)
 	{
@@ -172,12 +199,12 @@ void loop()
 		{
 			case Page_Main: MainScreen(); break;
 			case Page_Select_Preset: Set_Select_Preset(); break;
-			case Page_Set_Pressure_Threshold: Set_Breath_Pressure_Threshold(); break;
-			case Page_Set_Pressure_Max: Set_Breath_Max_Pressure (); break;
-			case Page_Set_Breath_CC_Midi_Channel: Set_Breath_CC_MidiChannel(); break;
-			case Page_Set_Breath_CC_Controller:	Set_Breath_CC_Controller(); break;
-			case Page_Set_Breath_CC_Min_Value: Set_Breath_Min_Value(); break;
-			case Page_Set_Breath_CC_Max_Value: Set_Breath_Max_Value(); break;
+			case Page_Set_Pressure_Threshold: Set_Blow_Pressure_Threshold(); break;
+			case Page_Set_Pressure_Max: Set_Blow_Max_Pressure (); break;
+			case Page_Set_Blow_CC_Midi_Channel: Set_Blow_CC_MidiChannel(); break;
+			case Page_Set_Blow_CC_Controller:	Set_Blow_CC_Controller(); break;
+			case Page_Set_Blow_CC_Min_Value: Set_Blow_Min_Value(); break;
+			case Page_Set_Blow_CC_Max_Value: Set_Blow_Max_Value(); break;
 
 			case Page_Set_Key_Midi_Channel: Set_Key_Midi_Channel(); break;
 			case Page_Set_Key_Low_Note: Set_Key_Low_Note();  break;

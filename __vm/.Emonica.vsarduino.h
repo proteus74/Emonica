@@ -15,10 +15,10 @@
 #define __HARDWARE_MK20dx256__
 #define __HARDWARE_MK20DX256__
 #define __MK20DX256__
-#define TEENSYDUINO 142
+#define TEENSYDUINO 144
 #define ARDUINO 10805
 #define F_CPU 96000000
-#define USB_MIDI
+#define USB_MIDI_SERIAL
 #define LAYOUT_US_ENGLISH
 #define __cplusplus 201103L
 #define __arm__

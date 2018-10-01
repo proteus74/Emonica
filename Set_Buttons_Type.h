@@ -130,7 +130,7 @@ void Set_Button_Type()
 			}
 
 		}
-		if (abs(millis() - LastTimer) > TIME_TO_MAIN_PAGE)
+		if (abs(millis() - LastTimer) > TIME_TO_RETURN_TO_MAIN_PAGE)
 		{
 			exit = true;
 			currentScreen = Page_Main;

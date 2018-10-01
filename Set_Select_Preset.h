@@ -59,7 +59,7 @@ void Set_Select_Preset()
 			currentScreen = Page_Set_Pressure_Threshold;
 		}
 
-		if (abs(millis() - LastTimer) > TIME_TO_MAIN_PAGE)
+		if (abs(millis() - LastTimer) > TIME_TO_RETURN_TO_MAIN_PAGE)
 		{
 			exit = true;
 			EEPROM.write(0, CurrentPreset);

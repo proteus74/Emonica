@@ -1,9 +1,9 @@
 #pragma once
 
-
 long SetupCounter = 0;
 boolean NoteIsPlaying = false;
 int LastNote = 0;
+
 void CoreProcessing()
 {
 
@@ -11,7 +11,7 @@ void CoreProcessing()
 
 	if (JumpToSetup == false)
 	{
-		if (DoButtonProcessing())
+		if (DoButtonProcessing())  // Returns true, if alle buttons are pressed at the same time
 		{
 			SetupCounter += CoreIntervall;
 			if (SetupCounter > 500000)
@@ -34,96 +34,125 @@ void CoreProcessing()
 	}
 	
 
-	// Pressure Handling
+	// Read the pressure of the blow-sensor
 	 CurrentPressureRaw = abs(analogRead(PRESSURE) - CalibationValue);
 	 CurrentPressureRaw = constrain(CurrentPressureRaw,0,1024);
 
-	 //CurrentPressureMidiValue = map(CurrentPressureRaw, Presets[CurrentPreset].Breath_Pressure_Threshold , Presets[CurrentPreset].Breath_Max_Pressure, Presets[CurrentPreset].Breath_CC_Min, Presets[CurrentPreset].Breath_CC_Max);
+	 //CurrentPressureMidiValue = map(CurrentPressureRaw, Presets[CurrentPreset].Blow_Pressure_Threshold , Presets[CurrentPreset].Blow_Max_Pressure, Presets[CurrentPreset].Blow_CC_Min, Presets[CurrentPreset].Blow_CC_Max);
 
 
-	 if (CurrentPressureRaw > Presets[CurrentPreset].Breath_Pressure_Threshold)
+	 if (CurrentPressureRaw > Presets[CurrentPreset].Blow_Pressure_Threshold)
 	 {
+		 // Okay there is pressure on the sensor, so let's see what we can do.
+		 
 
-
-
-		 // Es gibt Druck, also Spielen
-
-		 // Erst mal schauen, ob sie die Note geändert hat
-		 if (CurrentNote != LastNote)
+		 // Does the current note change against to the last note?
+		 if (CurrentNote != LastNote) // Yes
 		 {
-			 // Ja hat sie.
-
-			 // Sind wir noch am Spielen/Halten?	 
-			 if (NoteIsPlaying)  // 
-			 {
-				 // Dann ein NoteOff für die Alte Note Senden
-				// Serial.println("Note Off (Old) " + MidiToNote(LastNote));
-
-				 usbMIDI.sendNoteOff(LastNote, 0, 1);
-
-
-			 }
-			 NoteIsPlaying = true;
-			 // Und neue Note Raussenden
-			// Serial.println("Note 1 On " + MidiToNote(CurrentNote));
-			 usbMIDI.sendNoteOn(CurrentNote, Presets[CurrentPreset].Key_Expression, Presets[CurrentPreset].Key_MidiChannel);
 			 
+			 // Are we still blowing without stopping?
+			 if (NoteIsPlaying)  // YES
+			 {
+				 //Okay, let's send a note off for the previous note
+				 usbMIDI.sendNoteOff(LastNote, 0, 1);
+			 }
+			 
+
+
+
+			 
+   			 // Serial.println("Note 1 On " + MidiToNote(CurrentNote));
+			 
+			 
+			 // Are we using adaptive expression?
+			 if (Presets[CurrentPreset].Key_AdaptiveExpression)
+			 {
+
+				 // Send out note with dynamic expression
+				 int DynExValue = map(CurrentPressureRaw, Presets[CurrentPreset].Blow_Pressure_Threshold, Presets[CurrentPreset].Blow_Max_Pressure, Presets[CurrentPreset].Key_AdaptiveExpressionMin, Presets[CurrentPreset].Key_AdaptiveExpressionMax);
+				 DynExValue = constrain(DynExValue, Presets[CurrentPreset].Key_AdaptiveExpressionMin, Presets[CurrentPreset].Key_AdaptiveExpressionMax);
+				 usbMIDI.sendNoteOn(CurrentNote, DynExValue, Presets[CurrentPreset].Key_MidiChannel);
+			 }
+			 else
+			 {
+				 // Send the new note out with static expression
+				 usbMIDI.sendNoteOn(CurrentNote, Presets[CurrentPreset].Key_Expression, Presets[CurrentPreset].Key_MidiChannel);
+			 }
+
+			 NoteIsPlaying = true;
 			 LastNote = CurrentNote;
+
+
 		 }
 		 else
 		 {
-			 // Die Note ist immernoch gleich
-			 // Sind wir schon am Spielen?
+			 // Okay, the current note hasn't changed and we are playing
 			 if (NoteIsPlaying)
 			 {
 				 // Dann halten wir den Ton
 				 //Serial.println("Note Hold " + MidiToNote(CurrentNote));
-
+				 // If we are in AdaptiveExpression mode, then send only the current expression out
 				 if (Presets[CurrentPreset].Key_AdaptiveExpression)
 				 {
-
-					 
-					 int DynExValue = map(CurrentPressureRaw, Presets[CurrentPreset].Breath_Pressure_Threshold, Presets[CurrentPreset].Breath_Max_Pressure, Presets[CurrentPreset].Key_AdaptiveExpressionMin, Presets[CurrentPreset].Key_AdaptiveExpressionMax);
+					 int DynExValue = map(CurrentPressureRaw, Presets[CurrentPreset].Blow_Pressure_Threshold, Presets[CurrentPreset].Blow_Max_Pressure, Presets[CurrentPreset].Key_AdaptiveExpressionMin, Presets[CurrentPreset].Key_AdaptiveExpressionMax);
 					 DynExValue = constrain(DynExValue, Presets[CurrentPreset].Key_AdaptiveExpressionMin, Presets[CurrentPreset].Key_AdaptiveExpressionMax);
 					 //usbMIDI.sendAfterTouch(DynExValue, Presets[CurrentPreset].Key_MidiChannel);
 					 usbMIDI.sendControlChange(7, DynExValue, Presets[CurrentPreset].Key_MidiChannel);
-					// Serial.println("Dynamic Expression " +  (String)DynExValue);
-					 // Hier dann die dynamic Expression reinbauen
 				 }
 				 
 				 
 			 }
 			 else
 			 {
-				 // Wir Starten eine neue Note
-				// Serial.println("Note 1 On " + MidiToNote(CurrentNote));
-				 usbMIDI.sendNoteOn(CurrentNote, Presets[CurrentPreset].Key_Expression, Presets[CurrentPreset].Key_MidiChannel);
+				 
+				 // We play the note again
+				 // Are we using adaptive expression?
+				 if (Presets[CurrentPreset].Key_AdaptiveExpression)
+				 {
+
+					 // Send out note with dynamic expression
+					 int DynExValue = map(CurrentPressureRaw, Presets[CurrentPreset].Blow_Pressure_Threshold, Presets[CurrentPreset].Blow_Max_Pressure, Presets[CurrentPreset].Key_AdaptiveExpressionMin, Presets[CurrentPreset].Key_AdaptiveExpressionMax);
+					 DynExValue = constrain(DynExValue, Presets[CurrentPreset].Key_AdaptiveExpressionMin, Presets[CurrentPreset].Key_AdaptiveExpressionMax);
+					 usbMIDI.sendNoteOn(CurrentNote, DynExValue, Presets[CurrentPreset].Key_MidiChannel);
+				 }
+				 else
+				 {
+					 // Send the new note out with static expression
+					 usbMIDI.sendNoteOn(CurrentNote, Presets[CurrentPreset].Key_Expression, Presets[CurrentPreset].Key_MidiChannel);
+				 }
+				 
+					 
 				 NoteIsPlaying = true;
 			 }
 
 		 }
 
-		 int SendCCValue = map(CurrentPressureRaw, Presets[CurrentPreset].Breath_Pressure_Threshold, Presets[CurrentPreset].Breath_Max_Pressure, Presets[CurrentPreset].Breath_CC_Min, Presets[CurrentPreset].Breath_CC_Max);
-		 SendCCValue = constrain(SendCCValue, Presets[CurrentPreset].Breath_CC_Min, Presets[CurrentPreset].Breath_CC_Max);
+		 //  int SendCCValue = map(CurrentPressureRaw, Presets[CurrentPreset].Blow_Pressure_Threshold, Presets[CurrentPreset].Blow_Max_Pressure, Presets[CurrentPreset].Blow_CC_Min, Presets[CurrentPreset].Blow_CC_Max);
+		// SendCCValue = constrain(SendCCValue, Presets[CurrentPreset].Blow_CC_Min, Presets[CurrentPreset].Blow_CC_Max);
 
-		 //// Jetzt noch den CC - Wert senden
-		 //Serial.print("CC CH:" + (String)Presets[CurrentPreset].Breath_CC_MidiChannel + "  ");
-		 //Serial.print("CC Con:" + (String)Presets[CurrentPreset].Breath_CC_Controller + "  ");
+		 
+		 //Serial.print("CC CH:" + (String)Presets[CurrentPreset].Blow_CC_MidiChannel + "  ");
+		 //Serial.print("CC Con:" + (String)Presets[CurrentPreset].Blow_CC_Controller + "  ");
 		 //Serial.print("CC Raw:" + (String) +CurrentPressureRaw);
 		 //Serial.println("CC Val:" + (String)+SendCCValue);
 		 
 	 }
 	 else
 	 {
-		 // Es ist kein Luftdruck mehr da
-		 // Gibt es noch eine Note die Spielt ?
+		 // Okay, no more pressure on the sensor (or less than threshold)
+		 // Are we still playing?
 		 if (NoteIsPlaying)
 		 {
-			// Serial.println("Note Off (Old) " + MidiToNote(LastNote));
+			// Let's send a note off.
 			 usbMIDI.sendNoteOff(LastNote, 0, Presets[CurrentPreset].Key_MidiChannel);
 			 NoteIsPlaying = false;
 		 }
 	 }
+
+
+
+
+
 	 //Serial.println(micros() - lastMillsX);
 
 	 static unsigned long LastSliderStep[6];

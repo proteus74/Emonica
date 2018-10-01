@@ -12,7 +12,7 @@ void Set_Key_Midi_Channel()
 	
 	printCentered("Midi", 0);
 	printCentered("Channel", 9);
-	display.drawBitmap(0, 0, Mundharmonic_Icon, 26, 16, 1);
+	display.drawBitmap(0, 0, Harmonic_Icon, 26, 16, 1);
 	display.fillRect(0, 18, 127, 38, 0);
 	display.setFont(&FreeSansBold18pt7b);
 	printCentered(String(temp), 48);
@@ -45,14 +45,14 @@ void Set_Key_Midi_Channel()
 		if (Prev.Update())
 		{
 			exit = true;
-			currentScreen = Page_Set_Breath_CC_Max_Value;
+			currentScreen = Page_Set_Blow_CC_Max_Value;
 		}
 		if (Next.Update())
 		{
 			exit = true;
 			currentScreen = Page_Set_Key_Low_Note;
 		}
-		if (abs(millis() - LastTimer) > TIME_TO_MAIN_PAGE)
+		if (abs(millis() - LastTimer) > TIME_TO_RETURN_TO_MAIN_PAGE)
 		{
 			exit = true;
 			currentScreen = Page_Main;

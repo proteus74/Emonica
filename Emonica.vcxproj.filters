@@ -66,24 +66,6 @@
     <ClInclude Include="ScaleIntervals.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Set_Breath_CC_Controller.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Set_Breath_CC_MidiChannel.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Set_Breath_Max_Pressure.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Set_Breath_Max_Value.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Set_Breath_Min_Value.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Set_Breath_Pressure_Threshold.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Set_Buttons_Type.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -144,21 +126,33 @@
     <ClInclude Include="Set_Select_Preset.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="SimpleList.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Welcome.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Adafruit_SSD1306.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Set_Blow_Max_Pressure.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Set_Blow_CC_MidiChannel.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Set_Blow_CC_Controller.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Set_Blow_Min_Value.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Set_Blow_Max_Value.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Set_Blow_Pressure_Threshold.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Bounce.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="SimpleList.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Adafruit_SSD1306.cpp">

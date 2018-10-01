@@ -12,7 +12,7 @@ void Set_Key_Low_Note()
 	display.setFont(NULL);
 	printCentered("Root", 0);
 	printCentered("Note", 9);
-	display.drawBitmap(0, 0, Mundharmonic_Icon, 26, 16, 1);
+	display.drawBitmap(0, 0, Harmonic_Icon, 26, 16, 1);
 	display.fillRect(0, 18, 127, 38, 0);
 	display.setFont(&FreeSansBold18pt7b);
 	printCentered(MidiToNote(temp), 48);
@@ -55,7 +55,7 @@ void Set_Key_Low_Note()
 			exit = true;
 			currentScreen = Page_Set_Key_High_Note;
 		}
-		if (abs(millis() - LastTimer) > TIME_TO_MAIN_PAGE)
+		if (abs(millis() - LastTimer) > TIME_TO_RETURN_TO_MAIN_PAGE)
 		{
 			exit = true;
 			currentScreen = Page_Main;

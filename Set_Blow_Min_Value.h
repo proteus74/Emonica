@@ -1,9 +1,11 @@
 #pragma once
-
-void Set_Breath_Min_Value()
+/*
+	This is the Setuppage for the minimum MIDI value, when blowing
+*/
+void Set_Blow_Min_Value()
 {
 	int seltemp = -1;
-	int temp = Presets[CurrentPreset].Breath_CC_Min;
+	int temp = Presets[CurrentPreset].Blow_CC_Min;
 	const int MinVal = 0;
 	const int MaxVal = 127;
 	display.clearDisplay();
@@ -35,7 +37,7 @@ void Set_Breath_Min_Value()
 			LastTimer = millis();
 			display.fillRect(0, 20, 127, 38, 0);
 			display.setFont(&FreeSansBold18pt7b);
-			Presets[CurrentPreset].Breath_CC_Min = temp;
+			Presets[CurrentPreset].Blow_CC_Min = temp;
 			printCentered(String(temp), 48);
 			DrawProgressbar(temp, MinVal, MaxVal);
 			display.display();
@@ -44,14 +46,14 @@ void Set_Breath_Min_Value()
 		if (Prev.Update())
 		{
 			exit = true;
-			currentScreen = Page_Set_Breath_CC_Controller;
+			currentScreen = Page_Set_Blow_CC_Controller;
 		}
 		if (Next.Update())
 		{
 			exit = true;
-			currentScreen = Page_Set_Breath_CC_Max_Value;
+			currentScreen = Page_Set_Blow_CC_Max_Value;
 		}
-		if (abs(millis() - LastTimer) > TIME_TO_MAIN_PAGE)
+		if (abs(millis() - LastTimer) > TIME_TO_RETURN_TO_MAIN_PAGE)
 		{
 			exit = true;
 			currentScreen = Page_Main;

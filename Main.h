@@ -1,5 +1,8 @@
 #pragma once
+/*
+	Show the mainpage with the current note and the Blow value
 
+*/
 void MainScreen()
 {
 
@@ -13,12 +16,12 @@ void MainScreen()
 	}
 
 	int seltemp = -1;
-	int temp = Presets[CurrentPreset].Breath_Max_Pressure;
+	int temp = Presets[CurrentPreset].Blow_Max_Pressure;
 	
 	display.clearDisplay();
 	DisplayPresetNumber();
  
-	display.drawBitmap(30, 46, Logo_Klein, 76, 18, 1);
+	display.drawBitmap(30, 46, Logo_Small, 76, 18, 1);
 //	display.display();
 	//delay(PAUSE_BETWEEN_SCREENS);
 	
@@ -37,7 +40,7 @@ void MainScreen()
 			display.setFont(&FreeSansBold24pt7b);
 			printCentered( MidiToNote(CurrentNote), 34);
 			
-			int Test = map(CurrentPressureRaw, Presets[CurrentPreset].Breath_Pressure_Threshold, Presets[CurrentPreset].Breath_Max_Pressure, 0,36);
+			int Test = map(CurrentPressureRaw, Presets[CurrentPreset].Blow_Pressure_Threshold, Presets[CurrentPreset].Blow_Max_Pressure, 0,36);
 			Test = constrain(Test, 0,36);
 
 			double factor = ((double)125 / (double)127)  * (double)Test;
