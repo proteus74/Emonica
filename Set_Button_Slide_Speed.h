@@ -1,14 +1,14 @@
 #pragma once
-void Set_Button_Slide_Speed()
+void Set_Button_Pitch_Bend_Speed()
 {
 	int seltemp = -1;
 	int temp = Presets[CurrentPreset].Buttons[ButtonToConfigure].SlideSpeed;
 	const int MinVal = 0;
-	const int MaxVal = 127;
+	const int MaxVal = 10000;
 	display.clearDisplay();
 	DisplayPresetNumber();
 	display.setFont(NULL);
-	printCentered("Slide", 0);
+	printCentered("Pitch Bend", 0);
 	printCentered("Speed", 8);
 	display.drawBitmap(0, 0, PushButton, 16, 16, 1);
 	display.fillRect(0, 18, 127, 38, 0);
@@ -44,7 +44,7 @@ void Set_Button_Slide_Speed()
 		if (Prev.Update())
 		{
 			exit = true;
-			currentScreen = Page_Set_Button_Type_Slide_To;
+			currentScreen = Page_Set_Button_Type_Pitch_Bend_To;
 		}
 		if (Next.Update())
 		{

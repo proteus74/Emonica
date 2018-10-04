@@ -1,6 +1,6 @@
 #pragma once
 
-void Set_Button_Slide_To()
+void Set_Button_Pitch_Bend_To()
 {
 	int seltemp = -1;
 	int temp = Presets[CurrentPreset].Buttons[ButtonToConfigure].SlideTo;
@@ -9,7 +9,7 @@ void Set_Button_Slide_To()
 	display.clearDisplay();
 	DisplayPresetNumber();
 	display.setFont(NULL);
-	printCentered("Slide", 0);
+	printCentered("Pitch Bend", 0);
 	printCentered("To", 9);
 	display.drawBitmap(0, 0, PushButton, 16, 16, 1);
 	display.fillRect(0, 18, 127, 38, 0);
@@ -50,7 +50,7 @@ void Set_Button_Slide_To()
 		if (Next.Update())
 		{
 			exit = true;
-			currentScreen = Page_Set_Button_Type_Slide_Speed;
+			currentScreen = Page_Set_Button_Type_Pitch_Speed;
 		}
 		if (abs(millis() - LastTimer) > TIME_TO_RETURN_TO_MAIN_PAGE)
 		{

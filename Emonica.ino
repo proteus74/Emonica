@@ -28,10 +28,13 @@
 #define L3 13	// Input pin for the left bottom button
 
 
-#define R3 12	// Input pin for the right top button
+#define R1 12	// Input pin for the right top button
 #define R2 11   // Input pin for the right middle button
-#define R1 10	// Input pin for the right bottom button 
+#define R3 10	// Input pin for the right bottom button 
 
+//#define R3 12	// Input pin for the right top button			// SCHELLER
+//#define R2 11   // Input pin for the right middle button		// SCHELLER
+//#define R1 10	// Input pin for the right bottom button		// SCHELLER
 
 
 #define Pin_PrevScreen L2
@@ -39,11 +42,15 @@
 #define Pin_ValueUp R1
 #define Pin_ValueDown R2
 
+
+
 #define SCALECOUNTS 10  // Number of Scale-Types (N+1)
 
 
 #define CoreIntervall 5000   // Process Slider and pressure everey 5ms
-byte ButtonPinNumbers[6] = { L1,L2,L3,R1,R2,R3 };  
+// byte ButtonPinNumbers[6] = { L1,L2,L3,R1,R2,R3 };  // SCHELLER
+byte ButtonPinNumbers[6] = { L1,L2,L3,R1,R2,R3 };  // JOHN
+
 
 int CurrentNote;
 int CurrentPressureRaw;
@@ -122,27 +129,7 @@ void setup()
 	delay(500);
 	Serial.print("Emonica starting...");
 	// Uncomment this part for the first time, to initialze the Presets in the EEPROM 
-	/* 
-	for (byte t = 0; t < 8;t++)
-	{
-		Presets[t].Blow_CC_Controller = 1;
-		Presets[t].Blow_CC_Max = 127;
-		Presets[t].Blow_CC_MidiChannel = 1;
-		Presets[t].Blow_CC_Min = 0;
-		Presets[t].Blow_Max_Pressure = 255;
-		Presets[t].Blow_Pressure_Threshold = 10;
-		Presets[t].Buttons[0].Type = 0;
-		Presets[t].Key_AdaptiveExpression = false;
-		Presets[t].Key_AdaptiveExpressionMax = 127;
-		Presets[t].Key_AdaptiveExpressionMin = 0;
-		Presets[t].Key_Expression = 127;
-		Presets[t].Key_HighNote = 48;
-		Presets[t].Key_LowNote = 40;
-		Presets[t].Key_MidiChannel = 1;
-		Presets[t].Key_Scale = 0;
-	}
-	EEPROM_writeAnything(1, Presets);
-	*/
+	InitDefaultEepromValues();
 	
 	CurrentPreset = EEPROM.read(0);  // the first Byte in the eeprom contains the current selected preset
 
@@ -220,8 +207,8 @@ void loop()
 			case Page_Set_Button_Type_CC_Max_Value: Set_Button_CC_Max_Value(); break;
 			case Page_Set_Button_Type_CC_Min_Value: Set_Button_CC_Min_Value(); break;
 			case Page_Set_Button_Type_CC_Midi_Channel: Set_Button_CC_Midi_Channel(); break;
-			case Page_Set_Button_Type_Slide_To: Set_Button_Slide_To(); break;
-			case Page_Set_Button_Type_Slide_Speed: Set_Button_Slide_Speed(); break;
+			case Page_Set_Button_Type_Pitch_Bend_To: Set_Button_Pitch_Bend_To(); break;
+			case Page_Set_Button_Type_Pitch_Speed: Set_Button_Pitch_Bend_Speed(); break;
 			case Page_Set_Button_Type_Transpose_To: Set_Button_Transpose_To(); break;
 			case Page_Set_Button_Type_Midi_Note: Set_Button_Midi_Note(); break;
 

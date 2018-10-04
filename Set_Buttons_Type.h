@@ -4,7 +4,7 @@
 void Set_Button_Type()
 {
 
-	String EnumButtonTypes[5] = { "Off","Slide","Transpose","CC Control","Midi Note" };
+	String EnumButtonTypes[5] = { "Off","Pitch Bend","Transpose","CC Control","Midi Note" };
 
 	int seltemp = -1;
 	int temp = Presets[CurrentPreset].Buttons[ButtonToConfigure].Type;
@@ -55,7 +55,7 @@ void Set_Button_Type()
 				if (Presets[CurrentPreset].Buttons[ButtonToConfigure].Type == 1)
 				{
 					exit = true;
-					currentScreen = Page_Set_Button_Type_Slide_Speed;
+					currentScreen = Page_Set_Button_Type_Pitch_Bend_To;
 				}
 				else if (Presets[CurrentPreset].Buttons[ButtonToConfigure].Type == 2)
 				{
@@ -111,7 +111,7 @@ void Set_Button_Type()
 			else if (temp == 1)  // Slide To
 			{
 				exit = true;
-				currentScreen = Page_Set_Button_Type_Slide_To;
+				currentScreen = Page_Set_Button_Type_Pitch_Bend_To;
 			}
 			else if (temp == 2)  // Transpose
 			{

@@ -4,8 +4,10 @@
 */
 void Set_Blow_CC_Controller()
 {
+	 
 	int seltemp = -1;
 	int temp = Presets[CurrentPreset].Blow_CC_Controller;
+	
 	const int MinVal = 0;
 	const int MaxVal = 127;
 	display.clearDisplay();
@@ -13,7 +15,7 @@ void Set_Blow_CC_Controller()
 	DrawProgressbar(temp, MinVal, MaxVal);
 	display.setFont(NULL);
 	printCentered("CC", 0);
-	printCentered("Channel", 9);
+	printCentered("Controller", 9);
 	display.drawBitmap(0, 0, Mouth_Icon, 27, 16, 1);
 	display.fillRect(0, 18, 127, 38, 0);
 	display.setFont(&FreeSansBold18pt7b);

@@ -18,8 +18,8 @@
 #define Page_Set_Key_Adaptive_Expression_Min 14
 #define Page_Set_Key_Adaptive_Expression_Max 15
 #define Page_Set_Button_Type 16
-#define Page_Set_Button_Type_Slide_To 17
-#define Page_Set_Button_Type_Slide_Speed 18
+#define Page_Set_Button_Type_Pitch_Bend_To 17
+#define Page_Set_Button_Type_Pitch_Speed 18
 #define Page_Set_Button_Type_Transpose_To 19
 #define Page_Set_Button_Type_CC_Midi_Channel 20
 #define Page_Set_Button_Type_CC_Controller 21
@@ -30,7 +30,7 @@
 #define Page_Set_Button_Type_Midi_Expression 26
 
 #define PAUSE_BETWEEN_SCREENS 150
-#define TIME_TO_RETURN_TO_MAIN_PAGE 6000
+#define TIME_TO_RETURN_TO_MAIN_PAGE 56000
 
 String NoteNames[12] = { "C","C#","D","D#","E","F","F#","G","G#","A","A#","B" };
 int CalibationValue = 0;

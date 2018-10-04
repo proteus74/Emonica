@@ -80,3 +80,28 @@ void Calibrate()
 	}
 	CalibationValue = temp / 1000;
 }
+
+void InitDefaultEepromValues()
+{
+	
+	for (byte t = 0; t < 8;t++)
+	{
+		Presets[t].Blow_CC_Controller = 1;
+		Presets[t].Blow_CC_Max = 127;
+		Presets[t].Blow_CC_MidiChannel = 1;
+		Presets[t].Blow_CC_Min = 0;
+		Presets[t].Blow_Max_Pressure = 255;
+		Presets[t].Blow_Pressure_Threshold = 10;
+		Presets[t].Buttons[0].Type = 0;
+		Presets[t].Key_AdaptiveExpression = false;
+		Presets[t].Key_AdaptiveExpressionMax = 127;
+		Presets[t].Key_AdaptiveExpressionMin = 0;
+		Presets[t].Key_Expression = 127;
+		Presets[t].Key_HighNote = 48;
+		Presets[t].Key_LowNote = 40;
+		Presets[t].Key_MidiChannel = 1;
+		Presets[t].Key_Scale = 0;
+	}
+	EEPROM_writeAnything(1, Presets);
+	
+}

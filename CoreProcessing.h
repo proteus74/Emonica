@@ -224,14 +224,14 @@ void CoreProcessing()
 				 }
 			 }
 		 }
-
 	 }
 
+	 
 	 if (SliderCount_Old != SliderCount)
 	 {
-		 //Serial.println(8192 +  SliderCount * 64);
+		 Serial.println(SliderCount * 64);
 		 SliderCount_Old = SliderCount;
-		 usbMIDI.sendPitchBend(8192 + SliderCount * 64, Presets[CurrentPreset].Key_MidiChannel);
+		 usbMIDI.sendPitchBend(SliderCount * 64, Presets[CurrentPreset].Key_MidiChannel);
 
 	 }
 	
