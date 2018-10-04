@@ -129,7 +129,7 @@ void setup()
 	delay(500);
 	Serial.print("Emonica starting...");
 	// Uncomment this part for the first time, to initialze the Presets in the EEPROM 
-	InitDefaultEepromValues();
+	//InitDefaultEepromValues();
 	
 	CurrentPreset = EEPROM.read(0);  // the first Byte in the eeprom contains the current selected preset
 
